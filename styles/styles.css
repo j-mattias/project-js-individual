@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
 
 :root {
   --primary-font-col: #fff;
-  --primary-bg-col: #1A1E26;
+  --primary-bg-col: #1a1e26;
   --primary-offset-col: #172836;
   --shadow-col: rgba(0, 0, 0, 0.2);
 }
@@ -43,11 +43,11 @@ a {
 header {
   background-color: var(--primary-bg-col);
   box-shadow: 0 4px 4px var(--shadow-col);
-  
+
   & .navbar {
     margin-inline: auto;
     display: flex;
-  
+
     & .navbar__link {
       font-weight: 600;
       padding: 1rem;
@@ -57,7 +57,7 @@ header {
         background-color: var(--primary-offset-col);
       }
     }
-  
+
     & .navbar__link--logo {
       margin-right: auto;
     }
@@ -85,6 +85,8 @@ main {
 }
 
 .game-card {
+  display: flex;
+  flex-direction: column;
   background-color: var(--primary-bg-col);
   box-shadow: 0 0 8px 4px var(--shadow-col);
   transition: all 0.3s ease-out;
@@ -114,7 +116,9 @@ main {
     padding: 1rem;
     display: flex;
     flex-direction: column;
+    /* justify-content: space-between; */
     gap: 1rem;
+    height: 100%;
 
     & .game-card__heading,
     & .game-card__types {
@@ -126,6 +130,10 @@ main {
     & .game-card__heading {
       & .game-card__title {
         font-size: 1.2rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        padding-right: 1rem;
       }
 
       & .game-card__date {
@@ -134,7 +142,19 @@ main {
     }
 
     & .game-card__types {
-      margin-top: 1rem;
+      margin-top: auto;
+
+      & .game-card__genre,
+      & .game-card__platform {
+        padding: 0.5rem;
+        background-color: var(--primary-offset-col);
+        border-radius: 6px;
+      }
+
+      & .game-card__platform {
+        background-color: inherit;
+        border: 2px solid var(--primary-offset-col);
+      }
     }
   }
 }
