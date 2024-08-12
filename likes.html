@@ -3,10 +3,47 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://kit.fontawesome.com/22fe18faa8.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="styles/styles.css" />
     <title>Likes</title>
   </head>
   <body>
+    <header>
+      <nav class="navbar max-width">
+        <a href="index.html" class="navbar__link navbar__link--logo">Free 2 Play</a>
+        <a href="index.html" class="navbar__link navbar__link--games">Games</a>
+        <a href="likes.html" class="navbar__link navbar__link--likes">Likes</a>
+      </nav>
+    </header>
+
+    <main class="max-width">
+      <h1 class="title">Free To Play Games</h1>
+      <section class="games-grid">
+        <article class="game-card border-radius-8">
+          <figure class="game-card__fig">
+            <i class="fa-regular fa-heart"></i>
+            <img src="sandbox/thumbnail.jpg" alt="Taris Land splash image" />
+          </figure>
+          <div class="game-card__details">
+            <div class="game-card__heading">
+              <h3 class="game-card__title">Tarisland</h3>
+              <p class="game-card__date">2024-06-22</p>
+            </div>
+            <p class="game-card__description">
+              A cross-platform MMORPG developed by Level Infinite and Published by Tencent.
+            </p>
+            <div class="game-card__types">
+              <p class="game-card__genre">MMORPG</p>
+              <p class="game-card__platform">PC (Windows)</p>
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      <a href="https://www.freetogame.com/api-doc" class="attribution-link">API: freetogame</a>
+    </footer>
     <script type="module" src="script/likes.js"></script>
   </body>
 </html>
