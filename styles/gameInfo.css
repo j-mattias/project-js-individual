@@ -1,0 +1,97 @@
+main {
+  flex-direction: row;
+  align-items: start;
+  gap: 2rem;
+}
+
+img {
+  width: 100%;
+}
+
+.game-misc {
+  background-color: var(--primary-offset-col);
+
+  & .game-cover-art {
+    display: flex;
+  }
+
+  & .game-info,
+  & .game-sys-req {
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  & .game-info {
+
+    & .game-info__title {
+      margin-bottom: 1rem;
+    }
+
+    & .game-info__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
+      gap: 1rem;
+
+      & .game-info__wrapper {
+        & .game-info__subtitle {
+          margin-bottom: 0.4rem;
+          opacity: 0.5;
+        }
+      }
+    }
+    
+  }
+
+  & .game-sys-req {
+    display: flex;
+    flex-direction: column;
+
+    & .game-sys-req__wrapper {
+      & .game-sys-req__subtitle {
+        margin-bottom: 0.4rem;
+        opacity: 0.5;
+      }
+    }
+  }
+}
+
+.game-details {
+  max-width: 60%;
+
+  & .game-description {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    line-height: 1.4;
+
+    & .game-description__title {
+      font-size: 2rem;
+    }
+
+    & .game-description__link {
+      color: var(--accent-col);
+
+      &::before {
+        content: "\f0c1";
+        font-family: "Font Awesome 6 Free";
+        font-weight: 600;
+        margin-right: 0.4rem;
+      }
+    }
+  }
+
+  & .game-screenshots {
+
+    & .game-screenshots__title {
+      margin-bottom: 1rem;
+    }
+
+    & .game-screenshots__fig {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(12rem, 16rem));
+      gap: 1rem;
+    }
+  }
+}
