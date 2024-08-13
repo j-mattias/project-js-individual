@@ -1,10 +1,16 @@
-import { fetchGameData, getGames } from "./data.js";
+import {
+  getDataFromLocalStorage,
+  getGames,
+  addToLocalStorage,
+  removeFromLocalStorage,
+} from "./data.js";
 
-document.addEventListener("DOMContentLoaded", () => {
-  renderGameCards();
+document.addEventListener("DOMContentLoaded", async () => {
+  await renderGameCards();
+  setupBookmarks();
 });
 
-// getGames();
+// Render cards with game information
 async function renderGameCards() {
   const games = await getGames();
   const gamesGrid = document.querySelector(".games-grid");
@@ -19,9 +25,14 @@ async function renderGameCards() {
     const cardFigure = document.createElement("figure");
     cardFigure.classList.add("game-card__fig");
 
-    const heartIcon = document.createElement("i");
-    heartIcon.classList.add("fa-regular", "fa-heart");
-    cardFigure.appendChild(heartIcon);
+    const bookmarkIcon = document.createElement("i");
+    bookmarkIcon.classList.add("fa-regular", "fa-bookmark");
+    bookmarkIcon.id = game.id;
+
+    // Set the styling for the icon to reflect if game is bookmarked or not
+    updateBookmark(bookmarkIcon);
+
+    cardFigure.appendChild(bookmarkIcon);
 
     const img = document.createElement("img");
     img.src = game.thumbnail;
@@ -82,4 +93,37 @@ async function renderGameCards() {
     // Append to grid
     gamesGrid.appendChild(gameCard);
   });
+}
+
+// Add event listener to bookmark icons for adding/removing bookmarks
+function setupBookmarks() {
+  const bookmarkIcons = document.querySelectorAll(".fa-bookmark");
+
+  bookmarkIcons.forEach((bookmark) => {
+    bookmark.addEventListener("click", () => {
+      // If game is not bookmarked, add to bookmarks
+      if (bookmark.classList.contains("fa-regular")) {
+        addToLocalStorage("bookmarks", bookmark.id);
+        updateBookmark(bookmark);
+
+        // If game is bookmarked, remove from bookmarks
+      } else if (bookmark.classList.contains("fa-solid")) {
+        removeFromLocalStorage("bookmarks", bookmark.id);
+        updateBookmark(bookmark);
+      }
+    });
+  });
+}
+
+// Update the bookmark icon to reflect if game is bookmarked or not
+function updateBookmark(bookmark) {
+  const bookmarks = getDataFromLocalStorage("bookmarks");
+
+  if (bookmarks.includes(bookmark.id)) {
+    bookmark.classList.remove("fa-regular");
+    bookmark.classList.add("fa-solid");
+  } else {
+    bookmark.classList.add("fa-regular");
+    bookmark.classList.remove("fa-solid");
+  }
 }

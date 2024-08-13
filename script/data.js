@@ -50,4 +50,30 @@ function setDataInLocalStorage(key, data) {
   localStorage.setItem(key, JSON.stringify(data));
 }
 
-export { fetchGameData, getGames, getDataFromLocalStorage, setDataInLocalStorage };
+// Uppdate the specified key in localStorage to include new item
+function addToLocalStorage(key, id) {
+  const data = getDataFromLocalStorage(key);
+
+  // Only add the item if it's not already in the array
+  if (!data.includes(id)) {
+    data.push(id);
+    setDataInLocalStorage(key, data);
+  }
+}
+
+// Remove the specified item from the key in localStorage
+function removeFromLocalStorage(key, id) {
+  const data = getDataFromLocalStorage(key);
+  setDataInLocalStorage(
+    key,
+    data.filter((d) => d !== id)
+  );
+}
+
+export {
+  getGames,
+  getDataFromLocalStorage,
+  setDataInLocalStorage,
+  addToLocalStorage,
+  removeFromLocalStorage,
+};
