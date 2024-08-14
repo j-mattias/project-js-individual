@@ -1,5 +1,5 @@
 import { fetchGameData, getGames, setDataInLocalStorage } from "./data.js";
-import { setupBookmarks, updateBookmark } from "./app.js";
+import { setupBookmarks, updateBookmark, scrollToTop } from "./app.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
   const gameId = getUrlId();
@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   populateGameInfo(gameData);
   setupBookmarks();
   setupRating(gameId);
+  scrollToTop();
 });
 
 // Get id from the url

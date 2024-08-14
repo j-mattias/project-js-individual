@@ -1,5 +1,5 @@
 import { getDataFromLocalStorage, getGames } from "./data.js";
-import { renderGameCards, setupBookmarks } from "./app.js";
+import { renderGameCards, setupBookmarks, scrollToTop } from "./app.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
   const bookmarks = await retrieveBookmarks();
@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   setupBookmarks();
   updateBookmarkContainer();
+  scrollToTop();
 });
 
 // Get the bookmarks and get the games with corresponding id

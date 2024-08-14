@@ -141,4 +141,19 @@ function addRedirect(element, id) {
   });
 }
 
-export { renderGameCards, setupBookmarks, updateBookmark };
+// Add scroll listener, when window is scrolled make scroll to top button appear/disappear
+function scrollToTop() {
+  const scroller = document.querySelector(".to-top");
+
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 250) {
+      scroller.classList.add("slide-in");
+      scroller.classList.remove("slide-out");
+    } else {
+      scroller.classList.add("slide-out");
+      scroller.classList.remove("slide-in");
+    }
+  });
+}
+
+export { renderGameCards, setupBookmarks, updateBookmark, scrollToTop };

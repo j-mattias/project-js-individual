@@ -45,6 +45,14 @@ a {
   }
 }
 
+.slide-in {
+  animation: slide-in 0.6s ease-out forwards;
+}
+
+.slide-out {
+  animation: slide-out 0.6s ease-out backwards;
+}
+
 .max-width {
   max-width: 60%;
 }
@@ -89,8 +97,28 @@ main {
   gap: 1rem;
   padding: 1rem;
 
+  position: relative;
+
   & .title {
     margin-bottom: 2rem;
+  }
+
+  & .to-top {
+    display: flex;
+    padding: 0.6rem;
+    border-radius: 50%;
+    border: 2px solid var(--accent-col);
+    color: var(--accent-col);
+    font-size: 1.4rem;
+    position: fixed;
+    transition: all 0.2s ease-out;
+    right: clamp(5%, 10%, 15%);
+    bottom: -10%;
+
+    &:hover {
+      color: hsl(from var(--accent-col) h s calc(l + 10));
+      border-color: hsl(from var(--accent-col) h s calc(l + 10));
+    }
   }
 }
 
@@ -190,5 +218,23 @@ footer {
 
   .attribution-link {
     opacity: 0.4;
+  }
+}
+
+@keyframes slide-in {
+  from {
+    bottom: -10%;
+  }
+  to {
+    bottom: 5%;
+  }
+}
+
+@keyframes slide-out {
+  from {
+    bottom: 5%;
+  }
+  to {
+    bottom: -10%;
   }
 }
