@@ -1,9 +1,11 @@
-import { fetchGameData } from "./data.js";
+import { fetchGameData, getGames, setDataInLocalStorage } from "./data.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
   const gameId = getUrlId();
   const gameData = await fetchGameData(`game?id=${gameId}`);
   populateGameInfo(gameData);
+
+  setupRating(gameId);
 });
 
 // Get id from the url
@@ -66,4 +68,60 @@ function populateGameInfo(gameObj) {
 // Convert escape sequence from API description to break line tags
 function replaceBreakLines(text) {
   return text.replace("\r\n\r\n", "<br /><br />");
+}
+
+// Setup rating to display current rating and enable updating rating
+async function setupRating(id) {
+  // Get all games from API or localStorage if it's already saved
+  const games = await getGames();
+
+  // Check that the game exists in the list
+  const isValidGame = games.some((game) => String(game.id) === id);
+
+  if (isValidGame) {
+    // Find the game with id of current page
+    const findGame = games.find((game) => String(game.id) === id);
+
+    // Display the current rating, and enable updating the rating by clicking star
+    displayRating(findGame.rating);
+    updateRating(findGame, games);
+  }
+}
+
+// Update rating when clicking on star
+function updateRating(game, games) {
+  const stars = document.querySelectorAll(".fa-star");
+  stars.forEach((star) => {
+    star.addEventListener("click", () => {
+      // Get the id of the star to determine rating, and update it on the game object
+      const newRating = star.dataset.starId;
+      game.rating = newRating;
+
+      // Find the index of the game in the games list, and update it with the new game object
+      const index = games.findIndex((g) => g.id === game.id);
+      games.splice(index, 1, game);
+
+      // Store the updated games list in localStorage and display the new rating on the page
+      setDataInLocalStorage("games", games);
+      displayRating(newRating);
+    });
+  });
+}
+
+// Display the rating by displaying empty/filled stars
+function displayRating(rating) {
+  const stars = document.querySelectorAll(".fa-star");
+
+  stars.forEach((star) => {
+    // If the starId <= the games current rating fill the star
+    if (star.dataset.starId <= rating) {
+      star.classList.add("fa-solid");
+      star.classList.remove("fa-regular");
+
+      // Else empty the star
+    } else {
+      star.classList.add("fa-regular");
+      star.classList.remove("fa-solid");
+    }
+  });
 }

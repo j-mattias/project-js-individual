@@ -6,6 +6,8 @@
   --primary-offset-col: #172836;
   --shadow-col: rgba(0, 0, 0, 0.2);
   --accent-col: #b2dfff;
+  --rating-col: #ffdc69;
+  --rating-offset-col: hsl(from var(--rating-col) h s calc(l + 20));
 }
 
 * {

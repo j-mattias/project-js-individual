@@ -35,6 +35,12 @@ async function getGames() {
   console.log(games);
   if (games.length === 0) {
     games = await fetchGameData("games");
+
+    games = games.map((game) => {
+      game.rating = 1;
+      return game;
+    });
+
     setDataInLocalStorage("games", games);
   }
 
