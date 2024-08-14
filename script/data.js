@@ -1,9 +1,10 @@
 import { apiKey } from "./apiKey.js";
+const BASE_URL = "https://free-to-play-games-database.p.rapidapi.com/api/";
 
 // Fetch the data from the API
-async function fetchGameData() {
+async function fetchGameData(route) {
   // Setup fetch parameters
-  const url = "https://free-to-play-games-database.p.rapidapi.com/api/games";
+  const url = BASE_URL + route;
   const options = {
     method: "GET",
     headers: {
@@ -33,7 +34,7 @@ async function getGames() {
 
   console.log(games);
   if (games.length === 0) {
-    games = await fetchGameData();
+    games = await fetchGameData("games");
     setDataInLocalStorage("games", games);
   }
 
@@ -76,4 +77,5 @@ export {
   setDataInLocalStorage,
   addToLocalStorage,
   removeFromLocalStorage,
+  fetchGameData,
 };
