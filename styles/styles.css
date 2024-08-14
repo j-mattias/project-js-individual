@@ -99,6 +99,7 @@ main {
   flex-direction: column;
   background-color: var(--primary-bg-col);
   box-shadow: 0 0 8px 4px var(--shadow-col);
+  cursor: pointer;
   transition: all 0.3s ease-out;
 
   &:hover {
@@ -145,6 +146,7 @@ main {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      font-size: 0.8rem;
     }
 
     & .game-card__heading {
