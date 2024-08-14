@@ -1,10 +1,11 @@
 import { fetchGameData, getGames, setDataInLocalStorage } from "./data.js";
+import { setupBookmarks, updateBookmark } from "./app.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
   const gameId = getUrlId();
   const gameData = await fetchGameData(`game?id=${gameId}`);
   populateGameInfo(gameData);
-
+  setupBookmarks();
   setupRating(gameId);
 });
 
@@ -53,6 +54,11 @@ function populateGameInfo(gameObj) {
     gameObj.description
   );
   document.querySelector(".game-description__link").href = gameObj.game_url;
+
+  // Add id to bookmark icon and setup click functionality
+  const bookmarkIcon = document.querySelector(".fa-bookmark");
+  bookmarkIcon.id = gameObj.id;
+  updateBookmark(bookmarkIcon);
 
   // Populate screenshot container with screenshots
   const screenshotsFig = document.querySelector(".game-screenshots__fig");

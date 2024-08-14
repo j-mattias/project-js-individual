@@ -141,4 +141,4 @@ function addRedirect(element, id) {
   });
 }
 
-export { renderGameCards, setupBookmarks };
+export { renderGameCards, setupBookmarks, updateBookmark };

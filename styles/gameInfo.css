@@ -84,10 +84,17 @@ img {
     margin-bottom: 2rem;
     line-height: 1.4;
 
-    & .game-description__title {
-      font-size: 2rem;
-    }
+    & .game-description__wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
 
+      & .game-description__title {
+        font-size: 2rem;
+      }
+    }
+    
     & .game-description__link {
       color: var(--accent-col);
 
