@@ -1,5 +1,7 @@
 import { getDataFromLocalStorage, addToLocalStorage, removeFromLocalStorage } from "./data.js";
 
+const SHORT_DESC_MAX_LEN = 100;
+
 // Render cards with game information
 function renderGameCards(games) {
   const gamesGrid = document.querySelector(".games-grid");
@@ -54,7 +56,8 @@ function renderGameCards(games) {
     // Card description element
     const cardDescription = document.createElement("p");
     cardDescription.classList.add("game-card__description");
-    cardDescription.textContent = game.short_description;
+    const descriptionText = shortenDescription(game.short_description);
+    cardDescription.textContent = descriptionText;
 
     cardDetails.appendChild(cardDescription);
 
@@ -78,6 +81,9 @@ function renderGameCards(games) {
 
     // Append details wrapper to card
     gameCard.appendChild(cardDetails);
+
+    // Add click listener to redirect user to gameInfo page
+    addRedirect(gameCard, game.id);
 
     // Append to grid
     gamesGrid.appendChild(gameCard);
@@ -115,6 +121,24 @@ function updateBookmark(bookmark) {
     bookmark.classList.add("fa-regular");
     bookmark.classList.remove("fa-solid");
   }
+}
+
+// Shorten the description, helps prevent cards being too tall
+function shortenDescription(desc) {
+  if (desc.length > SHORT_DESC_MAX_LEN) {
+    return desc.slice(0, SHORT_DESC_MAX_LEN - 3).trim() + "...";
+  }
+  return desc;
+}
+
+// Add redirect when clicking on card
+function addRedirect(element, id) {
+  element.addEventListener("click", (e) => {
+    // Only redirect if user DOESN'T click on the bookmark icon
+    if (!e.target.classList.contains("fa-bookmark")) {
+      window.location.href = `./gameInfo.html?id=${id}`;
+    }
+  });
 }
 
 export { renderGameCards, setupBookmarks };
