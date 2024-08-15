@@ -156,4 +156,26 @@ function scrollToTop() {
   });
 }
 
-export { renderGameCards, setupBookmarks, updateBookmark, scrollToTop };
+// Render a message if there are no game cards in the container
+function renderEmpty(text) {
+  const gamesGrid = document.querySelector(".games-grid");
+  const textTag = document.createElement("p");
+  textTag.classList.add("empty-msg");
+  textTag.textContent = text;
+
+  gamesGrid.appendChild(textTag);
+}
+
+// Display a message to the user in case something went wrong
+function displayAlert(msg) {
+  const alert = document.querySelector(".alert");
+  const textTag = document.createElement("p");
+
+  // Clear alert container and set message
+  alert.innerHTML = "";
+  textTag.textContent = msg;
+
+  alert.appendChild(textTag);
+}
+
+export { renderGameCards, setupBookmarks, updateBookmark, scrollToTop, renderEmpty, displayAlert };

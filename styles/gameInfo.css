@@ -10,6 +10,7 @@ img {
 
 .game-misc {
   background-color: var(--primary-offset-col);
+  min-width: 14rem;
 
   & .game-cover-art {
     display: flex;

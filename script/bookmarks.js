@@ -1,13 +1,21 @@
 import { getDataFromLocalStorage, getGames } from "./data.js";
-import { renderGameCards, setupBookmarks, scrollToTop } from "./app.js";
+import { renderGameCards, setupBookmarks, scrollToTop, renderEmpty } from "./app.js";
+
+const BOOKMARK_MSG = "No bookmarks stored yet";
 
 document.addEventListener("DOMContentLoaded", async () => {
+  scrollToTop();
   const bookmarks = await retrieveBookmarks();
-  renderGameCards(bookmarks);
+
+  // If there are bookmarks display them, otherwise show message
+  if (bookmarks.length !== 0) {
+    renderGameCards(bookmarks);
+  } else {
+    renderEmpty(BOOKMARK_MSG);
+  }
 
   setupBookmarks();
   updateBookmarkContainer();
-  scrollToTop();
 });
 
 // Get the bookmarks and get the games with corresponding id
@@ -30,6 +38,11 @@ function updateBookmarkContainer() {
       // Select the card with the same id as the bookmark
       const gameCard = document.querySelector(`[data-id="${bookmark.id}"]`);
       cardGrid.removeChild(gameCard);
+
+      // If there are no nodes in the container, render a message instead
+      if (cardGrid.childNodes.length === 0) {
+        renderEmpty(BOOKMARK_MSG);
+      }
     });
   });
 }

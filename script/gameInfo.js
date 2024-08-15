@@ -1,13 +1,18 @@
 import { fetchGameData, getGames, setDataInLocalStorage } from "./data.js";
-import { setupBookmarks, updateBookmark, scrollToTop } from "./app.js";
+import { setupBookmarks, updateBookmark, scrollToTop, displayAlert } from "./app.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
-  const gameId = getUrlId();
-  const gameData = await fetchGameData(`game?id=${gameId}`);
-  populateGameInfo(gameData);
-  setupBookmarks();
-  setupRating(gameId);
   scrollToTop();
+  const gameId = getUrlId();
+
+  try {
+    const gameData = await fetchGameData(`game?id=${gameId}`);
+    populateGameInfo(gameData);
+    setupBookmarks();
+    setupRating(gameId);
+  } catch (error) {
+    displayAlert(error);
+  }
 });
 
 // Get id from the url
@@ -35,7 +40,7 @@ function populateGameInfo(gameObj) {
   document.querySelector(".game-info--publisher").textContent = gameObj.publisher;
   document.querySelector(".game-info--developer").textContent = gameObj.developer;
 
-  // Set system requirements fields
+  // Set system requirements fields if they exist, otherwise hide the container
   if (gameObj.minimum_system_requirements) {
     document.querySelector(".game-sys-req--os").textContent =
       gameObj.minimum_system_requirements.os;
@@ -47,6 +52,9 @@ function populateGameInfo(gameObj) {
       gameObj.minimum_system_requirements.graphics;
     document.querySelector(".game-sys-req--storage").textContent =
       gameObj.minimum_system_requirements.storage;
+  } else {
+    const sysReqContainer = document.querySelector(".game-sys-req");
+    sysReqContainer.classList.add("d-none");
   }
 
   // Set description fields

@@ -8,6 +8,7 @@
   --accent-col: #b2dfff;
   --rating-col: #ffdc69;
   --rating-offset-col: hsl(from var(--rating-col) h s calc(l + 20));
+  --alert-col: #d14444;
 }
 
 * {
@@ -42,6 +43,29 @@ a {
 
   &:hover {
     color: var(--accent-col);
+  }
+}
+
+.d-none {
+  display: none !important;
+}
+
+.empty-msg {
+  grid-column: 1 / -1;
+  margin-inline: auto;
+  font-style: italic;
+}
+
+.alert {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+
+  & p {
+    background-color: var(--alert-col);
+    box-shadow: 0 0 6px var(--shadow-col);
+    padding: 1rem;
+    border-radius: 8px;
   }
 }
 

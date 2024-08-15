@@ -18,13 +18,16 @@ async function fetchGameData(route) {
     const response = await fetch(url, options);
 
     if (!response.ok) {
-      throw new Error("Request not ok");
+      throw new Error("Failed to fetch resource");
     }
 
     const data = await response.json();
     return data;
   } catch (error) {
     console.error(error);
+
+    // Forward the error so it can be caught when calling the function
+    throw error;
   }
 }
 
@@ -32,12 +35,20 @@ async function fetchGameData(route) {
 async function getGames() {
   let games = getDataFromLocalStorage("games");
 
-  console.log(games);
-  if (games.length === 0) {
-    games = await fetchGameData("games");
+  console.log("getGames", games);
 
+  // If there are no games in localStorage
+  if (games.length === 0) {
+    // Catch and forward error so it can be caught when calling the function
+    try {
+      games = await fetchGameData("games");
+    } catch (error) {
+      throw error;
+    }
+
+    // Add a rating to each game object
     games = games.map((game) => {
-      game.rating = 1;
+      game.rating = 0;
       return game;
     });
 
