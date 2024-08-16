@@ -4,6 +4,7 @@ import { TAGS } from "./variables.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
   scrollToTop();
+  dropDown();
 
   try {
     const games = await getGames();
@@ -88,5 +89,34 @@ function renderFilterBoxes(tags) {
     label.textContent = tag.toUpperCase();
     label.classList.add("filter__label");
     filterContainer.appendChild(label);
+  });
+}
+
+// Add dropdown functionality to hide/show the filter tags
+function dropDown() {
+  const dropDownButton = document.querySelector(".drop-down__heading");
+  const container = dropDownButton.nextElementSibling;
+
+  // Add click listener to dropdown, so it grows/shrinks
+  dropDownButton.addEventListener("click", () => {
+
+    // If there is a maxHeight value, remove it, else calculate and set it
+    if (container.style.maxHeight) {
+      container.style.maxHeight = null;
+      container.style.marginTop = null;
+    } else {
+      container.style.maxHeight = container.scrollHeight + "px";
+      container.style.marginTop = "1rem";
+    }
+  });
+
+  // Add resize listener to window so the filter options don't get clipped
+  window.addEventListener("resize", () => {
+
+    // If there is a height keep updating it
+    if (container.style.maxHeight) {
+      container.style.maxHeight = container.scrollHeight + "px";
+      container.style.marginTop = "1rem";
+    }
   });
 }
