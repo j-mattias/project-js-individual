@@ -35,8 +35,6 @@ async function fetchGameData(route) {
 async function getGames() {
   let games = getDataFromLocalStorage("games");
 
-  console.log("getGames", games);
-
   // If there are no games in localStorage
   if (games.length === 0) {
     // Catch and forward error so it can be caught when calling the function

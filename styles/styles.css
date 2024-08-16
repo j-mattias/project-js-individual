@@ -53,7 +53,6 @@ button {
 .fa-bookmark {
   font-size: 2rem;
   cursor: pointer;
-
   transition: color 0.3s ease-out;
 
   &:hover {
@@ -135,6 +134,7 @@ main {
   margin-inline: auto;
   gap: 1rem;
   padding: 1rem;
+  padding-top: 0;
 
   position: relative;
 
@@ -144,14 +144,13 @@ main {
 
   & .to-top {
     display: flex;
-    padding: 0.6rem;
+    padding: 0.8rem;
     border-radius: 50%;
     border: 2px solid var(--rating-col);
     color: var(--rating-col);
     font-size: 1.4rem;
     position: fixed;
     transition: all 0.2s ease-out;
-    /* right: clamp(5%, 10%, 15%); */
     right: 3rem;
     bottom: -10%;
     background-color: var(--primary-offset-col);
@@ -354,7 +353,7 @@ footer {
     max-width: 90%;
 
     & .to-top {
-      right: calc(100% / 2.065);
+      right: calc(100% / 2 - 26px);
     }
   }
 

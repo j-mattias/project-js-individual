@@ -24,7 +24,12 @@ function getUrlId() {
   return id;
 }
 
+// Populate fields with game information
 function populateGameInfo(gameObj) {
+  // Remove the display none from containers since game was found
+  document.querySelector(".game-misc").classList.remove("d-none");
+  document.querySelector(".game-details").classList.remove("d-none");
+
   // Set window title
   document.querySelector("title").textContent = gameObj.title;
 
